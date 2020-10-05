@@ -1,0 +1,29 @@
+[
+  {"namespace": "com.izzyacademy.models",
+    "type": "record",
+    "name": "Product",
+    "fields": [
+      {"name": "product_id",   "type": "int"},
+      {"name": "name", "type": "string"},
+      {"name": "department", "type": "int"}
+    ]
+  },
+  {"namespace": "com.izzyacademy.models",
+    "type": "record",
+    "name": "ProductDetails",
+    "fields": [
+      {"name": "product_id",   "type": "int"},
+      {"name": "long_description", "type": "string"}
+    ]
+  },
+  {"namespace": "com.izzyacademy.models",
+    "type": "record",
+    "name": "ProductEnriched",
+    "fields": [
+      {"name": "productId",   "type": "int"},
+      {"name": "departmentId",   "type": "int"},
+      {"name": "name", "type": "string"},
+      {"name": "description", "type": "string"}
+    ]
+  }
+]
