@@ -22,6 +22,7 @@
     <kafka.version>2.6.0</kafka.version>
     <avro.version>1.9.1</avro.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <schema.registry.url>http://schemaregistry.izzyacademy.com:8081</schema.registry.url>
   </properties>
   <dependencies>
     <dependency>
@@ -64,6 +65,16 @@
       <artifactId>commons-cli</artifactId>
       <version>1.4</version>
     </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.10.2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.10.2</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -86,6 +97,28 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>io.confluent</groupId>
+        <artifactId>kafka-schema-registry-maven-plugin</artifactId>
+        <version>6.0.0</version>
+        <executions>
+          <execution>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>download</goal>
+            </goals>
+            <configuration>
+              <schemaRegistryUrls>
+                <param>${schema.registry.url}</param>
+              </schemaRegistryUrls>
+              <outputDirectory>src/main/resources/avro/schemas</outputDirectory>
+              <subjectPatterns>
+                <param>^estreams[0-9a-z._]{2,}-(key|value)$</param>
+              </subjectPatterns>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.apache.avro</groupId>
         <artifactId>avro-maven-plugin</artifactId>
         <version>${avro.version}</version>
@@ -96,7 +129,7 @@
               <goal>schema</goal>
             </goals>
             <configuration>
-              <sourceDirectory>src/main/resources/avro/com/izzyacademy/models</sourceDirectory>
+              <sourceDirectory>src/main/resources/avro/schemas</sourceDirectory>
               <outputDirectory>${project.build.directory}/generated-sources</outputDirectory>
               <stringType>String</stringType>
             </configuration>
@@ -131,7 +164,7 @@
         <id>confluent</id>
         <url>https://packages.confluent.io/maven/</url>
     </repository>
-</repositories>
+  </repositories>
   <pluginRepositories>
     <pluginRepository>
       <id>confluent</id>

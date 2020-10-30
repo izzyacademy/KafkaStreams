@@ -34,6 +34,7 @@ public class ProductEnrichmentService2 implements KafkaStreamService{
     @Override
     public void run() {
 
+        /**
         // Pass in via ENVIRONMENT variables
         final String schemaRegistryUrl = "";
         final String bootStrapServer = "";
@@ -71,5 +72,7 @@ public class ProductEnrichmentService2 implements KafkaStreamService{
         streams.start();
 
         Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
+
+         **/
     }
 }
