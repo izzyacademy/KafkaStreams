@@ -22,7 +22,7 @@
     <kafka.version>2.6.0</kafka.version>
     <avro.version>1.9.1</avro.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <schema.registry.url>http://schemaregistry.izzyacademy.com:8081</schema.registry.url>
+    <schema.registry.url>http://schemaregistry-external.river.svc.cluster.local:8081</schema.registry.url>
   </properties>
   <dependencies>
     <dependency>
@@ -110,7 +110,7 @@
               <schemaRegistryUrls>
                 <param>${schema.registry.url}</param>
               </schemaRegistryUrls>
-              <outputDirectory>src/main/resources/avro/schemas</outputDirectory>
+              <outputDirectory>src/main/resources/schemas</outputDirectory>
               <subjectPatterns>
                 <param>^estreams[0-9a-z._]{2,}-(key|value)$</param>
               </subjectPatterns>
@@ -129,7 +129,7 @@
               <goal>schema</goal>
             </goals>
             <configuration>
-              <sourceDirectory>src/main/resources/avro/schemas</sourceDirectory>
+              <sourceDirectory>src/main/resources/schemas</sourceDirectory>
               <outputDirectory>${project.build.directory}/generated-sources</outputDirectory>
               <stringType>String</stringType>
             </configuration>
