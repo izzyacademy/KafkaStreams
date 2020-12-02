@@ -6,7 +6,7 @@
   <version>1.0.0</version>
   <name>${project.artifactId}</name>
   <description>Apache Kafka Streams Sample Applications</description>
-  <inceptionYear>2018</inceptionYear>
+  <inceptionYear>2020</inceptionYear>
   <licenses>
     <license>
       <name>Apache License</name>
@@ -150,7 +150,7 @@
               <finalName>${project.artifactId}-${project.version}-uber</finalName>
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>com.izzyacademy.core.Driver</mainClass>
+                  <mainClass>com.izzyacademy.core.SweetStreams</mainClass>
                 </transformer>
               </transformers>
             </configuration>
