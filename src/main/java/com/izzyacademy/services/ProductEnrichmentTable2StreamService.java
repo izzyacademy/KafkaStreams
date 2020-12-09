@@ -16,7 +16,7 @@ import java.util.Properties;
 
 import static java.util.Collections.singletonMap;
 
-public class ProductEnrichmentTable2StreamService implements KafkaStreamService{
+public class ProductEnrichmentTable2StreamService implements StreamMicroService {
 
     private static final String CLIENT_ID = "64";
     private static final String APP_ID = "product_enrichment_services";

@@ -1,35 +1,58 @@
 package com.izzyacademy.core;
 
-import com.izzyacademy.services.KafkaStreamService;
+import com.izzyacademy.services.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 // Run compiled application as
 // java -jar .\target\streams-app-1.0.0-uber.jar
 public class SweetStreams {
 
+    private static final String DEFAULT_SERVICE = DefaultService.class.getSimpleName();
+
+    private static final Map<String, String> serviceNames = new HashMap<>(8);
+
+    static {
+
+        // Register the Micro Services
+        registerMicroService(DefaultService.class);
+        registerMicroService(KTableService.class);
+        registerMicroService(KStreamService.class);
+        registerMicroService(GlobalKTableService.class);
+        registerMicroService(ProductEnrichmentTable2TableService.class);
+        registerMicroService(ProductEnrichmentStream2StreamService.class);
+        registerMicroService(ProductEnrichmentTable2StreamService.class);
+    }
+
+    /**
+     * Registers the MicroService in the registry of service names
+     *
+     * @param microServiceClass Micro Service Class
+     */
+    private static void registerMicroService(Class<? extends StreamMicroService> microServiceClass) {
+        serviceNames.put(microServiceClass.getSimpleName(), microServiceClass.getName());
+    }
+
     public static void main(final String[] args) throws Exception {
 
-        int selectionIndex = 0; // which service are we going to run?
+        // Retrieving the environment variables
+        final Map<String, String> env = System.getenv();
 
-        if (args.length == 1) {
-            selectionIndex = Integer.parseInt(args[0]);
-        }
+        // Picking the service name from the environment variable
+        final String serviceName = env.getOrDefault("SERVICE_NAME", DEFAULT_SERVICE);
 
-        // These are the names of Micro Services that process Kafka Streams from Topics
-        final String[] serviceNames = {
-                "com.izzyacademy.services.ProductEnrichmentStream2StreamService",
-                "com.izzyacademy.services.ProductEnrichmentTable2StreamService",
-                "com.izzyacademy.services.ProductEnrichmentTable2TableService",
-        };
+        // Select one of the registered micro services
+        final String serviceClass = serviceNames.get(serviceName);
 
-        // Select one of the micro services listed above
-        final String serviceName = serviceNames[selectionIndex];
-
+        System.out.println("Registered Micro Services");
+        System.out.println(serviceNames.entrySet());
         System.out.println();
-        System.out.println("selectionIndex=" + selectionIndex + ", serviceName=" + serviceName);
+        System.out.println("selectedServiceName=" + serviceName + ", serviceClass=" + serviceClass);
         System.out.println();
 
         // All classes must implement the KafkaStreamService interface
-        KafkaStreamService service = (KafkaStreamService) Class.forName(serviceName).newInstance();
+        StreamMicroService service = (StreamMicroService) Class.forName(serviceClass).newInstance();
 
         // Run the service
         service.run();

@@ -1,6 +1,6 @@
 package com.izzyacademy.services;
 
-public interface KafkaStreamService {
+public interface StreamMicroService {
 
     public void run();
 }

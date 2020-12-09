@@ -1,10 +1,8 @@
 package com.izzyacademy.services;
 
 
-import estreams64.ecommerce.product_details.Value;
 import io.confluent.kafka.serializers.AbstractKafkaSchemaSerDeConfig;
 import io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde;
-import org.apache.commons.compress.utils.Lists;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
@@ -18,7 +16,7 @@ import java.util.Properties;
 
 import static java.util.Collections.singletonMap;
 
-public class ProductEnrichmentStream2StreamService implements KafkaStreamService{
+public class ProductEnrichmentStream2StreamService implements StreamMicroService {
 
     private static final String CLIENT_ID = "64";
     private static final String APP_ID = "product_enrichment_services";
