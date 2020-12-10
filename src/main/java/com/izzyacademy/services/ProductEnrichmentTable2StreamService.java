@@ -73,9 +73,6 @@ public class ProductEnrichmentTable2StreamService implements StreamMicroService 
           (productValue, productDetailValue) -> ProductEnrichmentStream2StreamService.joiner(productValue, productDetailValue),
                 Joined.with(Serdes.Integer(), productSerde, productDetailsSerde));
 
-        // Filter out some values
-        //outputStream.filter((k, v)-> v.getProductId() > 4001);
-
         outputStream.to(PRODUCT_ENRICHED2_TOPIC, Produced.with(Serdes.Integer(), productEnrichedSerde));
 
         // Sends the contents of the output stream to standard output in realtime

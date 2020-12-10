@@ -17,9 +17,10 @@ public class SweetStreams {
 
         // Register the Micro Services
         registerMicroService(DefaultService.class);
-        registerMicroService(KTableService.class);
-        registerMicroService(KStreamService.class);
-        registerMicroService(GlobalKTableService.class);
+
+        registerMicroService(CustomerOrdersEnrichmentService.class);
+        registerMicroService(OrderLineItemEnrichmentService.class);
+
         registerMicroService(ProductEnrichmentTable2TableService.class);
         registerMicroService(ProductEnrichmentStream2StreamService.class);
         registerMicroService(ProductEnrichmentTable2StreamService.class);
